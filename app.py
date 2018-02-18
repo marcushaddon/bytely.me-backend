@@ -1,4 +1,5 @@
 import json
+import time
 from flask import Flask, request, redirect, jsonify, abort
 from db import db
 from codegen import next_code
@@ -8,20 +9,51 @@ BASE_URL = "http://127.0.0.1:5000/"
 
 app = Flask(__name__)
 
+# =================================
+# ROOT
+# =================================
 @app.route("/")
 def hello():
     # TODO: Return UI
     return "Hello World!"
 
+# =================================
+# GET REDIRECT
+# =================================
 @app.route("/<short_code>")
 def shorturls(short_code):
     shorturl = db.shortened_urls.find_one({ "short_code": short_code })
     if shorturl is None:
         abort(404)
     
-    print request.headers
+    # Record data about this click
+    linkid = shorturl['_id']
+    headers = request.headers
+    now = time.time()
+    # TODO: Get geolocation!
+
+    headerdict = {}
+    for header in request.headers:
+        headerdict[header[0]] = header[1]
+
+    click = {
+        "url_id": linkid,
+        "headers": headerdict,
+        "time": now
+    }
+    
+    try:
+        db.clicks.insert_one(click)
+    except Exception, e:
+        # Most important thing is to serve the redirect
+        print e.message
+        pass
+    
     return redirect(shorturl["long_url"])
 
+# =================================
+# CREATE LINK
+# =================================
 @app.route('/short_url', methods=['POST'])
 def shortenurl():
     body = request.get_json()
@@ -55,11 +87,6 @@ def shortenurl():
         abort(400)
     except Exception, e:
         abort(500)
-
-    # If we already have it, no need to store it again!
-    maybe_existing_url = db.shortened_urls.find_one({ "long_url": cleaned_url })
-    if maybe_existing_url is not None:
-        return jsonify(BASE_URL + maybe_existing_url['short_code'])
     
     latest_short_code = None
     try:
@@ -77,7 +104,7 @@ def shortenurl():
 
     new_shorted_url = {
         "long_url": cleaned_url,
-        "short_code": next_short_code
+        "short_code": brand if brand is not None else next_short_code
     }
 
     try:
@@ -85,7 +112,9 @@ def shortenurl():
     except:
         abort(500)
 
-    with open('latestshortcode.txt', 'wb') as outfile:
-        outfile.write(next_short_code)
+    # Only update latest shortcode if we used a generated shortcode
+    if brand is None:
+        with open('latestshortcode.txt', 'wb') as outfile:
+            outfile.write(next_short_code)
     
     return jsonify(BASE_URL + new_shorted_url['short_code'])
