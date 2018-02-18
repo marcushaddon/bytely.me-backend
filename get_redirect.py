@@ -1,6 +1,7 @@
 import time
 from flask import Blueprint, request, redirect
 from db import db
+import pygeoip
 
 get_redirect = Blueprint('get_redirect', __name__)
 
@@ -22,11 +23,15 @@ def shorturls(short_code):
     headerdict = {}
     for header in request.headers:
         headerdict[header[0]] = header[1]
+    
+    gi = pygeoip.GeoIP('GeoLiteCity.dat', pygeoip.MEMORY_CACHE)
+    geo_data = gi.record_by_addr(request.remote_addr)
 
     click = {
         "url_id": linkid,
         "headers": headerdict,
-        "time": now
+        "time": now,
+        "geo_data": geo_data
     }
     
     try:
