@@ -1,7 +1,4 @@
-import json
-import time
-from flask import Flask, request, redirect, jsonify, abort
-from db import db
+from flask import Flask
 
 
 from create_link import create_link

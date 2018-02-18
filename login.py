@@ -12,14 +12,20 @@ def get_token():
     body = request.get_json()
 
     try:
-        username = body['username']
+        username_or_email = body['username_or_email']
         password = body['password']
     except:
         abort(403)
 
     pwhash = hashlib.sha512(password + PASSWORD_SALT).hexdigest()
     
-    user = db.users.find_one({"username": username, "pwhash": pwhash})
+    query = {
+        "pwhash": pwhash, 
+        "$or": [
+            { "username": username_or_email }, 
+            { "email": username_or_email }
+            ]}
+    user = db.users.find_one(query)
 
     if user is None:
         abort(403)
