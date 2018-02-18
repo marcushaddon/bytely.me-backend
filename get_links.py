@@ -7,7 +7,6 @@ get_links = Blueprint('get_links', __name__)
 
 @get_links.route('/users/<user_id>/links')
 def getlinks(user_id):
-    print user_id
     authenticate(request, user_id)
     # TODO: Actaully get clicks for this user, implement pagination
     try:
