@@ -2,6 +2,7 @@ from flask import Blueprint, request, redirect, jsonify, abort
 from db import db
 from codegen import next_code
 from clean_url import clean_url
+from authentication import authenticate
 
 from config import BASE_URL
 
