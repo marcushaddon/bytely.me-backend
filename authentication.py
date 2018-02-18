@@ -32,3 +32,18 @@ def authenticate(request, resource_owner_id):
         abort(403) 
 
     return True
+
+def get_user_id(request):
+    tokenheader = request.headers.get('Authentication')
+    if tokenheader is None:
+        return None
+    
+    token = tokenheader.split(' ')[1]
+    try:
+        payload = jwt.decode(token, JWT_SECRET, algorithm='HS256')
+    except:
+        # TODO: Implement custom error class for bad tokens
+        raise Exception
+
+    if "user_id" in payload:
+        return payload["user_id"]

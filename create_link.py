@@ -1,8 +1,9 @@
 from flask import Blueprint, request, redirect, jsonify, abort
+from bson.objectid import ObjectId
 from db import db
 from codegen import next_code
 from clean_url import clean_url
-from authentication import authenticate
+from authentication import authenticate, get_user_id
 
 from config import BASE_URL
 
@@ -59,9 +60,16 @@ def shortenurl():
     while db.shortened_urls.find_one({"short_code": next_short_code}) is not None:
         next_short_code = next_code(next_short_code)
 
+    try:
+        user_id = get_user_id(request)
+    except Exception, e:
+        print e.message
+        abort(403)
+    
     new_shorted_url = {
         "long_url": cleaned_url,
-        "short_code": brand if brand is not None else next_short_code
+        "short_code": brand if brand is not None else next_short_code,
+        "user_id": user_id
     }
 
     try:
