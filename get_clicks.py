@@ -17,7 +17,6 @@ def getclicks(user_id):
         print e.message
         abort(500)
         
-    print linkids
     try:
         clicksquery = db.clicks.find({"url_id": { "$in": linkids } })
         clicks = [click for click in clicksquery]
