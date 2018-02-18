@@ -1,4 +1,5 @@
 from flask import request, abort
+from bson.objectid import ObjectId
 import jwt
 from config import JWT_SECRET
 from db import db
@@ -11,7 +12,7 @@ def authenticate(request, resource_owner_id):
     token = tokenheader.split(' ')[1]
 
     try:
-        payload = jwt.decode(token, JWT_SECRET, algorithm='HS264')
+        payload = jwt.decode(token, JWT_SECRET, algorithm='HS256')
     except jwt.DecodeError:
         abort(403)
     except:

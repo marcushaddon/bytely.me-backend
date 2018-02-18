@@ -7,6 +7,7 @@ from db import db
 from create_link import create_link
 from get_redirect import get_redirect
 from get_clicks import get_clicks
+from login import login
 
 
 
@@ -23,3 +24,4 @@ def hello():
 app.register_blueprint(create_link)
 app.register_blueprint(get_redirect)
 app.register_blueprint(get_clicks)
+app.register_blueprint(login)
