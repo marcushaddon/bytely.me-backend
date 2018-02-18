@@ -38,5 +38,12 @@ def get_token():
     }
 
     token = jwt.encode(payload, JWT_SECRET, algorithm="HS256")
-
-    return jsonify({"token": token})
+    response = {
+        "token": token, 
+        "user": {
+            "username": user["username"],
+            "_id": str(user["_id"]),
+            "email": user["email"]
+        }
+        }
+    return jsonify(response)

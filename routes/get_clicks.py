@@ -1,7 +1,7 @@
 from flask import Blueprint, request, abort
 from db import db
-from bsonencoder import BSONEncoder
-from authentication import authenticate
+from helpers.bsonparsing import BSONEncoder
+from helpers.authentication import authenticate
 
 get_clicks = Blueprint('get_clicks', __name__)
 

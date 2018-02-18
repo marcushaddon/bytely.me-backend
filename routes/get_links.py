@@ -1,7 +1,7 @@
 from flask import Blueprint, request, abort, jsonify
-from authentication import authenticate
 from db import db
-from bsonencoder import BSONEncoder
+from helpers.authentication import authenticate
+from helpers.bsonparsing import BSONEncoder
 
 get_links = Blueprint('get_links', __name__)
 

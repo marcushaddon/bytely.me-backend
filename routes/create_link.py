@@ -1,9 +1,9 @@
 from flask import Blueprint, request, redirect, jsonify, abort
 from bson.objectid import ObjectId
 from db import db
-from codegen import next_code
-from clean_url import clean_url
-from authentication import authenticate, get_user_id
+from helpers.codes import next_code
+from helpers.clean_url import clean_url
+from helpers.authentication import authenticate, get_user_id
 
 from config import BASE_URL
 
