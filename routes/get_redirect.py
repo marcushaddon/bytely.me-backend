@@ -32,7 +32,7 @@ def shorturls(short_code):
         geo_data = gi.record_by_addr(request.remote_addr)
 
         click = {
-            "url_id": linkid,
+            "url_id": str(linkid),
             "headers": headerdict,
             "time": now,
             "geo_data": geo_data
