@@ -8,7 +8,8 @@ from routes import (
     login, 
     get_clicks, 
     sign_up,
-    get_user_stats
+    get_user_stats,
+    get_link_stats
 )
 
 
@@ -30,3 +31,4 @@ app.register_blueprint(login)
 app.register_blueprint(get_clicks)
 app.register_blueprint(sign_up)
 app.register_blueprint(get_user_stats)
+app.register_blueprint(get_link_stats)

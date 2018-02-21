@@ -69,10 +69,10 @@ def shorturls(short_code):
             pass
         
         # TODO: Update stats object for click record
-        linkstats = db.clickstats.find_one({ "link_id": str(click["url_id"]) })
+        linkstats = db.linkstats.find_one({ "link_id": str(click["url_id"]) })
         if linkstats is None:
             linkstatsexisted = False
-            linkstats = stats.default_stats_obj({"link_id": str(click["url_id"]) })
+            linkstats = stats.default_stats_obj({ "link_id": str(click["url_id"]) })
         else:
             linkstatsexisted = True
             linkstats = stats.unfreeze_stats_obj(linkstats)
