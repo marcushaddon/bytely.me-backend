@@ -35,6 +35,7 @@ def authenticate(request, resource_owner_id):
 
 def get_user_id(request):
     tokenheader = request.headers.get('Authentication')
+    print tokenheader
     if tokenheader is None:
         return None
     

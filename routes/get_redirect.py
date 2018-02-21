@@ -33,6 +33,7 @@ def shorturls(short_code):
 
         click = {
             "url_id": str(linkid),
+            "user_id": shorturl["user_id"],
             "headers": headerdict,
             "time": now,
             "geo_data": geo_data
