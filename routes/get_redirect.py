@@ -29,7 +29,9 @@ def shorturls(short_code):
         
         # TODO: This database throws an exception for IPv6 addrs
         gi = pygeoip.GeoIP('GeoLiteCity.dat', pygeoip.MEMORY_CACHE)
-        geo_data = gi.record_by_addr(request.remote_addr)
+        # geo_data = gi.record_by_addr(request.remote_addr)
+        geo_data = gi.record_by_addr("67.198.96.200")
+
 
         click = {
             "url_id": str(linkid),
@@ -47,46 +49,11 @@ def shorturls(short_code):
             pass
 
         # Update the user's overall stats
-        userstats = db.userstats.find_one({ "user_id": shorturl["user_id"] })
-        if userstats is None:
-            userstatsexisted = False
-            userstats = stats.default_stats_obj({"user_id": shorturl["user_id"] })
-        else:
-            userstatsexisted = True
-            userstats = stats.unfreeze_stats_obj(userstats)
-
-        userstats = stats.update_stats_obj(userstats, click)
-        
-        userstats = stats.freeze_stats_obj(userstats)
-        
         try:
-            if userstatsexisted:
-                db.userstats.update({ "user_id": userstats["user_id"] }, { "$set": userstats }, check_keys=False)
-            else:
-                db.userstats.insert(userstats, check_keys=False)
+            stats.update_user_stats(shorturl["user_id"], click)
+            # update_link_stats(str(shorturl["_id"]), click)
         except Exception, e:
-            print e.message
-            pass
-        
-        # TODO: Update stats object for click record
-        linkstats = db.linkstats.find_one({ "link_id": str(click["url_id"]) })
-        if linkstats is None:
-            linkstatsexisted = False
-            linkstats = stats.default_stats_obj({ "link_id": str(click["url_id"]) })
-        else:
-            linkstatsexisted = True
-            linkstats = stats.unfreeze_stats_obj(linkstats)
-
-        linkstats = stats.update_stats_obj(linkstats, click)
-        
-        linkstats = stats.freeze_stats_obj(linkstats)
-        
-        try:
-            if linkstatsexisted:
-                db.linkstats.update({ "link_id": linkstats["link_id"] }, { "$set": linkstats }, check_keys=False)
-            else:
-                db.linkstats.insert(linkstats, check_keys=False)
-        except Exception, e:
+            print type(e)
             print e.message
             pass
 
