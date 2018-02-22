@@ -34,7 +34,7 @@ def shorturls(short_code):
 
 
         click = {
-            "url_id": str(linkid),
+            "link_id": str(linkid),
             "user_id": shorturl["user_id"],
             "headers": headerdict,
             "time": now,
@@ -48,10 +48,20 @@ def shorturls(short_code):
             print e.message
             pass
 
-        # Update the user's overall stats
+        
         try:
-            stats.update_user_stats(shorturl["user_id"], click)
-            # update_link_stats(str(shorturl["_id"]), click)
+            # Update the user's overall stats
+            stats.update_stats(
+                shorturl["user_id"], 
+                click, 
+                stat_level=stats.StatLevel.USER)
+
+            # Update the link's overall stats
+            stats.update_stats(
+                str(shorturl["_id"]),
+                click,
+                stat_level=stats.StatLevel.LINK)
+
         except Exception, e:
             print type(e)
             print e.message
