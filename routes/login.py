@@ -7,7 +7,7 @@ import jwt
 
 login = Blueprint('login', __name__)
 
-@login.route('/login', methods=['POST'])
+@login.route('/api/login', methods=['POST'])
 def get_token():
     body = request.get_json()
 

@@ -9,7 +9,7 @@ get_redirect = Blueprint('get_redirect', __name__)
 # =================================
 # GET REDIRECT
 # =================================
-@get_redirect.route("/<short_code>")
+@get_redirect.route("/api/<short_code>")
 def shorturls(short_code):
     shorturl = db.shortened_urls.find_one({ "short_code": short_code })
     if shorturl is None:

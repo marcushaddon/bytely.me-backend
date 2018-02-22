@@ -5,7 +5,7 @@ from helpers.bsonparsing import BSONEncoder
 
 get_links = Blueprint('get_links', __name__)
 
-@get_links.route('/users/<user_id>/links')
+@get_links.route('/api/users/<user_id>/links')
 def getlinks(user_id):
     if get_user_id(request) != user_id:
         abort(403)

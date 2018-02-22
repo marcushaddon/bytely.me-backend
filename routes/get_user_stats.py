@@ -5,12 +5,19 @@ from helpers.bsonparsing import BSONEncoder
 
 get_user_stats = Blueprint('get_user_stats', __name__)
 
-@get_user_stats.route('/users/<user_id>/stats')
+@get_user_stats.route('/api/users/<user_id>/stats')
 def user_stats(user_id):
     actual_user_id = get_user_id(request)
-    if actual_user_id != user_id:
+    
+    if user_id != actual_user_id:
         abort(403)
     
-    stats = db.userstats.find_one({ "user_id": user_id })
+    results = {}
+    
+    statsquery = db.userstats.find({ "user_id": actual_user_id })
+    stats = [stat for stat in statsquery]
 
-    return BSONEncoder().encode(stats)
+    for stat in stats:
+        results[stat['type']] = stat
+
+    return BSONEncoder().encode(results)

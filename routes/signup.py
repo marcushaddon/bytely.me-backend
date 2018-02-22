@@ -5,7 +5,7 @@ from config import PASSWORD_SALT, JWT_SECRET
 
 sign_up = Blueprint('sign_up', __name__)
 
-@sign_up.route('/signup', methods=['POST'])
+@sign_up.route('/api/signup', methods=['POST'])
 def signup():
     body = request.get_json()
     username = None

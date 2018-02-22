@@ -6,7 +6,7 @@ from helpers.authentication import authenticate, get_user_id
 
 get_clicks = Blueprint('get_clicks', __name__)
 
-@get_clicks.route('/links/<link_id>/clicks')
+@get_clicks.route('/api/links/<link_id>/clicks')
 def getclicks(link_id):
     user_id = get_user_id(request)
     
