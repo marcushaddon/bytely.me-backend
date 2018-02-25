@@ -2,9 +2,13 @@
 class Shortener {
 
     apiBaseUrl;
+    _token;
+    loggedIn;
 
     constructor() {
         this._apiBaseUrl = 'http://localhost:5000/api/';
+        this._token = window.localStorage.getItem('shortener-token');
+        this.loggedIn =  this._token !== null && this._token !== '';
     }
 
     shorten(longUrl, brand) {

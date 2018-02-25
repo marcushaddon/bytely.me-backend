@@ -3,7 +3,7 @@ from pymongo import MongoClient
 
 
 try:
-    mongo_conn_str = os.environ["MONGODB_CONNECTION_STRING"]
+    mongo_conn_str = os.environ["MONGODB_URI"]
 except KeyError:
     mongo_conn_str = None
 
