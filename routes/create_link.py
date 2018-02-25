@@ -46,14 +46,12 @@ def shortenurl():
     except Exception, e:
         abort(500)
     
-    latest_short_code = None
-    try:
-        with open('latestshortcode.txt', 'rb') as infile:
-            latest_short_code = infile.readline()
-    except:
-        pass
+    latest_code_record = db.latest_short_code.find_one()
     
-    next_short_code = next_code(latest_short_code)
+    
+    print latest_code_record
+    last_code = latest_code_record["code"] if latest_code_record is not None else None
+    next_short_code = next_code(last_code)
 
     # Make sure we havent generated a short code that
     # someone has already used as a custom brand
@@ -79,7 +77,15 @@ def shortenurl():
 
     # Only update latest shortcode if we used a generated shortcode
     if brand is None:
-        with open('latestshortcode.txt', 'wb') as outfile:
-            outfile.write(next_short_code)
+        if latest_code_record is None:
+            print "CREATING"
+            db.lastest_short_code.insert_one({
+                "code": next_short_code
+            })
+        else:
+            print "UPDATING"
+            db.latest_short_code.update(
+                { "_id": latest_code_record["_id"] },
+                { "$set": { "code": next_short_code } } )
     
-    return jsonify(BASE_URL + new_shorted_url['short_code'])
+    return jsonify({"short_url": BASE_URL + new_shorted_url['short_code'] })

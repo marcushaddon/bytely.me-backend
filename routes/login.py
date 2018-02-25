@@ -10,7 +10,7 @@ login = Blueprint('login', __name__)
 @login.route('/api/login', methods=['POST'])
 def get_token():
     body = request.get_json()
-
+    print body
     try:
         username_or_email = body['username_or_email']
         password = body['password']
