@@ -4,6 +4,8 @@ class Shortener {
     apiBaseUrl;
     _token;
     loggedIn;
+    userId;
+    userName;
 
     constructor() {
         this._apiBaseUrl = 'http://localhost:5000/api/';
@@ -20,6 +22,16 @@ class Shortener {
             body['brand'] = brand;
         }
         return this.post(resource, body);
+    }
+
+    getLinks() {
+        const resource = `users/${this.userId}/links`;
+        return this.get(resource);
+    }
+
+    getUserStats() {
+        const resource = `users/${this.userId}/stats`;
+        return this.get(resource);
     }
 
     get(resource) {
@@ -50,6 +62,18 @@ class Shortener {
         }
 
         return headers;
+    }
+
+    get username() {
+        return window.localStorage.getItem('shortener-username');
+    }
+
+    get email() {
+        return window.localStorage.getItem('shortener-email');
+    }
+
+    get userId() {
+        return window.localStorage.getItem('shortener-userid');
     }
 
 

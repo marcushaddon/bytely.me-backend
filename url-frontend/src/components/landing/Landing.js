@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ShortenForm from '../shortenform/ShortenForm';
+import { Link } from 'react-router-dom';
 
 import './landing.css';
 
@@ -36,7 +37,9 @@ class Landing extends Component {
                         </p>
                     </Grid.Column>
                     <Grid.Column>
-                        <Button size='massive' color='teal' positive>Sign Up</Button>
+                        <Link to='/signup'>
+                            <Button size='massive' color='teal' positive>Sign Up</Button>
+                        </Link>
                     </Grid.Column>
                 </Grid.Row>     
             </Grid>
