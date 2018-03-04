@@ -46,20 +46,19 @@ class Signup extends Component {
             return <Redirect to='/dashboard' />
         }
         return (
-            <div>
-                <div>
+            <div className='row'>
+                <div className='col-md-4 offset-md-4'>
+                    <div className='form-group'>
                     <h1>Login</h1>
-                </div>
-                <div>
-                    <input type='text' onChange={e => this.setState({username_or_email: e.target.value})} size='small' type='text' placeholder='Desired User Name (Required)' />
-                </div>
-                <div>
-                    <input type='text' onChange={e => this.setState({password: e.target.value})} size='small' type='password' placeholder='Password (Required)' />
-                </div>
 
-                <div columns={1}>
-                    <button onClick={this.maybeSubmit}>Shorten!</button>
+                    <input className='form-control' type='text' onChange={e => this.setState({username_or_email: e.target.value})} size='small' type='text' placeholder='Desired User Name (Required)' />
+                    <input className='form-control' type='text' onChange={e => this.setState({password: e.target.value})} size='small' type='password' placeholder='Password (Required)' />
+                    <button className='btn btn-primary' onClick={this.maybeSubmit}>Log In</button>
+                
                 </div>
+            </div>
+            
+        
 
 
             </div>

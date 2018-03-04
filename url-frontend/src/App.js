@@ -2,35 +2,38 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import './node_modules/bootstrap/dist/css/bootstrap.css'
 
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import Signup from './components/Signup/Signup';
 import Login from './components/Login/Login';
+import Navbar from './components/Navbar/Navbar';
 
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div className="App">
+      <div>
+        <Router>
+          <div className="App">
 
-          {/* HOME */}
-          <Route path='/' exact={true} component={Landing} />
+            {/* HOME */}
+            <Route path='/' exact={true} component={Landing} />
 
-          {/* SIGNUP */}
-          <Route path='/signup' exact={true} component={Signup} />
+            {/* SIGNUP */}
+            <Route path='/signup' exact={true} component={Signup} />
 
-          {/* LOGIN */}
-          <Route path='/login' exact={true} component={Login} />
+            {/* LOGIN */}
+            <Route path='/login' exact={true} component={Login} />
 
-          {/* DASHBOARD */}
-          <Route path='/dashboard' exact={true} component={Dashboard} />
+            {/* DASHBOARD */}
+            <Route path='/dashboard' exact={true} component={Dashboard} />
 
 
-          
-        </div>
-      </Router>
+            
+          </div>
+        </Router>
+      </div>
+      
       
     )
   }

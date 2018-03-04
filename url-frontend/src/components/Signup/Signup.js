@@ -42,29 +42,20 @@ class Signup extends Component {
             return <Redirect to='/login' />
         }
         return (
-            <div 
-            // className='spash'
-            container 
-            textAlign='center' 
-            verticalAlign='middle'
-            stackable
-            >
-                <div>
+            <div class='row'>
+                <div class='col-md-4 offset-md-4'>
                     <h1>Sign Up</h1>
-                </div>
-                <div>
-                    <input type='text' onChange={e => this.setState({username: e.target.value})} size='small' type='text' placeholder='Desired User Name (Required)' />
-                </div>
-                <div>
-                    <input type='text' onChange={e => this.setState({email: e.target.value})} size='small' type='email' placeholder='Email (Required)' />
-                </div>
-                <div>
-                    <input type='text' onChange={e => this.setState({password: e.target.value})} size='small' type='password' placeholder='Password (Required)' />
-                </div>
+            
+            
+                    <input className='form-control' type='text' onChange={e => this.setState({username: e.target.value})} size='small' type='text' placeholder='Desired User Name (Required)' />
+                    <input className='form-control' type='text' onChange={e => this.setState({email: e.target.value})} size='small' type='email' placeholder='Email (Required)' />
+                    <input className='form-control' type='text' onChange={e => this.setState({password: e.target.value})} size='small' type='password' placeholder='Password (Required)' />
 
-                <div columns={1}>
-                    <button onClick={this.maybeSubmit}>Shorten!</button>
+
+                    <button className='btn btn-primary' onClick={this.maybeSubmit}>Shorten!</button>
                 </div>
+                
+            
 
 
             </div>

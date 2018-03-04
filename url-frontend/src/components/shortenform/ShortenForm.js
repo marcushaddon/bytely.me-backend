@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Shortener from '../../ShortenerService';
 
-// UI
-import { Grid, Button, Divider, Input } from 'semantic-ui-react';
+
 
 class ShortenForm extends Component {
     constructor() {
@@ -44,20 +43,19 @@ class ShortenForm extends Component {
 
     render() {
         return (
-            <div>
-                <Grid.Row>
-                    <Input size='small' placeholder='Long URL' focus onChange={this.setUrl} />
-                </Grid.Row>
-                <Grid.Row>
-                    <Input size='small' onChange={this.setBrand} placeholder='Custom Brand' disabled={!this.shortener.loggedIn} />
-                </Grid.Row>
-                <Grid.Row>
-                    <Input size='small' readOnly value={this.state.shortUrl} placeholder='Short Url!' />
-                </Grid.Row>
-                <Grid.Row>
-                    <Button size='small' onClick={this.shortenUrl}>Shorten!</Button>
-                </Grid.Row>
-                {this.brand} {this.longUrl}
+            <div className='form-group'>
+
+                <label htmlFor="long-url">Long URL</label>
+                <input id='long-url' className='form-control' type='text' placeholder='ex: https://www.mysite.com/resrouce/longid/lkajdsf?filter=thing&callback=blahblahblah' onChange={this.setUrl} />
+
+                <label htmlFor="brand">Custom Brand <span className="badge badge-secondary">Members Only!</span></label>
+                <input id='brand' className='form-control' type='text' onChange={this.setBrand} placeholder='ex: promo' disabled={!this.shortener.loggedIn} />
+                
+                <label htmlFor="short-url">Shortened URL</label>
+                <input className='form-control'type='text' placeholder='https://bytely.me/promo' readOnly value={this.state.shortUrl}/>
+
+                <button className="btn btn-primary" onClick={this.shortenUrl}>Shorten!</button>
+
             </div>
         )
     }
