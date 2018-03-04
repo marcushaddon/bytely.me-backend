@@ -5,15 +5,18 @@ export default class Portion {
     whole;
     
 
-    constructor(title, color, amount, whole) {
+    constructor(title, color, value, whole) {
         this.title = title;
         this.color = color;
-        this.amount = amount;
+        this.value = value;
         this.whole = whole;
     }
 
     get percent() {
-        return (this.amount / this.whole) * 100;
+        console.log(this.value)
+        console.log(this.whole)
+        console.log(this.value/this.whole)
+        return (this.value / this.whole) * 100;
     }
 
     

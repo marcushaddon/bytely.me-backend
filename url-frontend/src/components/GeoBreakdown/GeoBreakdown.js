@@ -11,19 +11,18 @@ class GeoBreakdown extends Component {
 
     fieldsOfInterest = [
         'country_name',
+        'time_zone',
         'region_code',
-        'postal_code',
         'city',
-        'time_zone'
-
-    ];
+        'postal_code'
+        ];
     render() {
         return (
             <div>
                 {
                     this.fieldsOfInterest.map(
-                        field => this.props.stats[field] ?
-                        <PortionBreakdown stats={this.props.stats[field]} title={field} /> : <span></span>
+                        (field, index) => this.props.stats[field] ?
+                        <PortionBreakdown key={index} stats={this.props.stats[field]} title={field} /> : <span></span>
                     )
                 }
             </div>
