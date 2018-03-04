@@ -62,7 +62,7 @@ class Dashboard extends Component {
                 </Grid.Row>
 
                 <Grid.Row>
-                    <Grid.Column>
+                    <Grid.Column width={8}>
                         {this.state.userStats ? <StatBreakdown stats={this.state.userStats} /> : <span>Fetching stats...</span> }
                     </Grid.Column>
                 </Grid.Row>

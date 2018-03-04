@@ -9,6 +9,20 @@ import PortionBreakdown from '../PortionBreakdown/PortionBreakdown';
 
 class GeoBreakdown extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            activeStatName: 'city',
+            activeStat: this.props.stats['city']
+        }
+        this.handleActiveStatChange = this.handleActiveStatChange.bind(this)
+    }
+
+    handleActiveStatChange(e) {
+        this.setState({ activeStatName: e.target.value })
+        this.setState({ activeStat: this.props.stats[e.target.value] })
+    }
+
     fieldsOfInterest = [
         'country_name',
         'time_zone',
@@ -16,14 +30,22 @@ class GeoBreakdown extends Component {
         'city',
         'postal_code'
         ];
+    
     render() {
         return (
             <div>
+                <h3>Geo Location Stats</h3>
+                Engagement by <select defaultValue='city' onChange={this.handleActiveStatChange}>
+                    {
+                        
+                        this.fieldsOfInterest.map(
+                            (field, index) => <option key={index} value={field}>{StatHelper.friendlyField(field)}</option>
+                        )
+                    }
+                    
+                </select>
                 {
-                    this.fieldsOfInterest.map(
-                        (field, index) => this.props.stats[field] ?
-                        <PortionBreakdown key={index} stats={this.props.stats[field]} title={field} /> : <span></span>
-                    )
+                    <PortionBreakdown stats={this.state.activeStat} title={StatHelper.friendlyField(this.state.activeStatName)} />
                 }
             </div>
         );

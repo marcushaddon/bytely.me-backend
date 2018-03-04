@@ -15,12 +15,12 @@ class StatBreakdown extends Component {
         return (
             <Grid.Row>
                     <Grid.Column>
-                        {
+                        {/* {
                             this.props.stats && this.props.stats.headers ?
                             <HeaderBreakdown
                             title="Headers"
                             stats={this.props.stats.headers} /> : <span>No header info available.</span>
-                        }
+                        } */}
 
                         {
                             this.props.stats && this.props.stats.geo_data ?
