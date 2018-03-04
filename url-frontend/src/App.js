@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
+import './node_modules/bootstrap/dist/css/bootstrap.css'
 
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';

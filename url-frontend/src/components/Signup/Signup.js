@@ -5,7 +5,7 @@ import Shortener from '../../ShortenerService';
 import './signup.css';
 
 // UI
-import { Grid, Button, Divider, Input } from 'semantic-ui-react';
+
 
 class Signup extends Component {
 
@@ -42,32 +42,32 @@ class Signup extends Component {
             return <Redirect to='/login' />
         }
         return (
-            <Grid 
+            <div 
             // className='spash'
             container 
             textAlign='center' 
             verticalAlign='middle'
             stackable
             >
-            <Grid.Row>
-                <h1>Sign Up</h1>
-            </Grid.Row>
-            <Grid.Row>
-                <Input onChange={e => this.setState({username: e.target.value})} size='small' type='text' placeholder='Desired User Name (Required)' />
-            </Grid.Row>
-            <Grid.Row>
-                <Input onChange={e => this.setState({email: e.target.value})} size='small' type='email' placeholder='Email (Required)' />
-            </Grid.Row>
-            <Grid.Row>
-                <Input onChange={e => this.setState({password: e.target.value})} size='small' type='password' placeholder='Password (Required)' />
-            </Grid.Row>
+                <div>
+                    <h1>Sign Up</h1>
+                </div>
+                <div>
+                    <input type='text' onChange={e => this.setState({username: e.target.value})} size='small' type='text' placeholder='Desired User Name (Required)' />
+                </div>
+                <div>
+                    <input type='text' onChange={e => this.setState({email: e.target.value})} size='small' type='email' placeholder='Email (Required)' />
+                </div>
+                <div>
+                    <input type='text' onChange={e => this.setState({password: e.target.value})} size='small' type='password' placeholder='Password (Required)' />
+                </div>
 
-            <Grid.Row columns={1}>
-                <Button size='small' onClick={this.maybeSubmit}>Shorten!</Button>
-            </Grid.Row>
+                <div columns={1}>
+                    <button onClick={this.maybeSubmit}>Shorten!</button>
+                </div>
 
 
-            </Grid>
+            </div>
         );
     }
 }

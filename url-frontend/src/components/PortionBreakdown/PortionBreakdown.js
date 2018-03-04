@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import Shortener from '../../ShortenerService';
 import StatHelper from '../../StatHelper';
 
-// UI
-import { Grid, Button, Divider, Input, Segment, Rail } from 'semantic-ui-react';
 import { PieChart } from 'react-easy-chart';
 
 class PortionBreakdown extends Component {
@@ -28,7 +26,6 @@ class PortionBreakdown extends Component {
     }
 
     render() {
-        console.log("rendinger")
         return (
             <div>
                 <h4>{StatHelper.friendlyField(this.props.title)}</h4>
