@@ -16,8 +16,14 @@ class Dashboard extends Component {
         this.shortener = new Shortener();
         this.state = {
             stats: {},
-            links: []
-        };        
+            links: [],
+            activeLink: null,
+            coolthing: {}
+        };
+
+        this.setActiveLink = this.setActiveLink.bind(this);
+        this.getLinkStats = this.getLinkStats.bind(this);
+        this.clearActiveLink = this.clearActiveLink.bind(this);
     }
 
     componentDidMount() {
@@ -32,11 +38,43 @@ class Dashboard extends Component {
         .then(res => res.json())
         .then(
             userStats => {
-                this.setState({ userStats: userStats })
+                this.setState({ stats: userStats })
             },
             err => console.log(err)
         );
     }
+
+    getLinkStats() {
+        if (this.state.activeLink) {
+            this.shortener.getLinkStats(this.state.activeLink._id)
+            .then(res => res.json())
+            .then(stats => this.setState({ stats: stats}))
+        } else {
+            this.shortener.getUserStats()
+            .then(res => res.json())
+            .then(
+                userStats => {
+                    this.setState({ stats: userStats })
+                },
+                err => console.log(err)
+                );
+        }       
+        
+    }
+
+    setActiveLink(index) {
+        let link = this.state.links[index];
+        this.setState({activeLink: link}); // WHYY NO WORK
+        this.state.activeLink = link;
+        
+        this.getLinkStats();
+    }
+
+    clearActiveLink() {
+        this.state.activeLink = null; // WHY DOESNT SET STATE WORK
+        this.getLinkStats()
+    }
+
 
     render() {
         return (
@@ -45,17 +83,7 @@ class Dashboard extends Component {
 
                     <div className='jumbotron'>
                         <h1 className="display-4"><strong>{this.shortener.username}'s</strong> Dashboard</h1>
-                        {/* {
-                            this.state.userStats && this.state.userStats.geo_data ?
-                            <GeoBreakdown
-                            stats={this.state.userStats.geo_data} /> : <span>No geo data available.</span>
-                        }
-
-                        {
-                            this.state.userStats && this.state.userStats.hours_utc ?
-                            <HoursBreakdown
-                            stats={this.state.userStats.hours_utc} /> : <span>No hours usage data available.</span>
-                        } */}
+                        
                         <p>
                             Here you can see stats about how people are engaging with your links!
                         </p>
@@ -67,18 +95,31 @@ class Dashboard extends Component {
 
                     <div className='col-sm-12 col-md-4'>
                         <ul className='list-group'>
-                            <li class='list-group-item'>Overal stats for '{this.shortener.username}'</li>
+                            <li onClick={this.clearActiveLink} className={'list-group-item ' + (this.state.activeLink ? '': 'active')}>Overal stats for '{this.shortener.username}'</li>
                             {
                                 this.state.links ?
                                 this.state.links.map(
-                                    link => <li className='list-group-item'>https://bytely.me/{link.short_code}</li>
+                                    (link, index) => <li key={index} onClick={this.setActiveLink.bind(this, index)} className={'list-group-item ' + (this.state.activeLink && this.state.activeLink._id === link._id ? 'active': '')}>https://bytely.me/{link.short_code}</li>
                                 ) : <li className='list-group-item'>You haven't created any links!</li>
                             }
                         </ul>
                     </div>
 
                     <div className='col-sm-12 col-md-8'>
-                        stats
+                            
+                        {
+                            this.state.stats && this.state.stats.geo_data ?
+                            <GeoBreakdown
+                            stats={this.state.stats.geo_data} /> : <span>No geo data available.</span>
+                        }
+
+                        {/* {
+                            this.state.stats && this.state.stats.hours_utc ?
+                            <HoursBreakdown
+                            stats={this.state.userStats.hours_utc} /> : <span>No hours usage data available.</span>
+                        } */}
+
+
                     </div>
                     </div>
 

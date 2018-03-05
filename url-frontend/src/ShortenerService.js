@@ -29,6 +29,11 @@ class Shortener {
         return this.get(resource);
     }
 
+    getLinkStats(linkId) {
+        const resource = `links/${linkId}/stats`;
+        return this.get(resource);
+    }
+
     getUserStats() {
         const resource = `users/${this.userId}/stats`;
         return this.get(resource);

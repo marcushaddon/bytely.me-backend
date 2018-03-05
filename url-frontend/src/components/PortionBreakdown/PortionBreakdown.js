@@ -25,7 +25,12 @@ class PortionBreakdown extends Component {
         this.setPortions(props)
     }
 
+    shouldComponentUpdate() {
+        return true;
+    }
+
     render() {
+        console.log("portions is rendering")
         return (
             <div>
                 <h4>{StatHelper.friendlyField(this.props.title)}</h4>

@@ -13,7 +13,7 @@ export default class StatHelper {
         for (let key in statDict) {
             portions.push(new Portion(key, statDict[key], total));
         }
-
+        
         return portions;
     }
 

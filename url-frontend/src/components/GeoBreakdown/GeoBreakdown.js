@@ -12,15 +12,26 @@ class GeoBreakdown extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            stats: this.props.stats,
             activeStatName: 'city',
             activeStat: this.props.stats['city']
+            
         }
         this.handleActiveStatChange = this.handleActiveStatChange.bind(this)
     }
 
     handleActiveStatChange(e) {
         this.setState({ activeStatName: e.target.value })
-        this.setState({ activeStat: this.props.stats[e.target.value] })
+        this.setState({ activeStat: this.state.stats[e.target.value] })
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({stats: props.stats})
+        this.setState({activeStat: props.stats[this.state.activeStatName]})
+    }
+
+    shouldComponentUpdate() {
+        return true;
     }
 
     fieldsOfInterest = [
@@ -32,8 +43,9 @@ class GeoBreakdown extends Component {
         ];
     
     render() {
+        
         return (
-            <div>
+            <div class='stat-section'>
                 <h3>Geo Location Stats</h3>
                 Engagement by <select defaultValue='city' onChange={this.handleActiveStatChange}>
                     {
