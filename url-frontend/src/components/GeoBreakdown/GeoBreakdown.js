@@ -45,7 +45,7 @@ class GeoBreakdown extends Component {
     render() {
         
         return (
-            <div class='stat-section'>
+            <div className='stat-section'>
                 <h3>Geo Location Stats</h3>
                 Engagement by <select defaultValue='city' onChange={this.handleActiveStatChange}>
                     {

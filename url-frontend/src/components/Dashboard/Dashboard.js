@@ -87,42 +87,53 @@ class Dashboard extends Component {
                         <p>
                             Here you can see stats about how people are engaging with your links!
                         </p>
+                        <Link to='/'>&lt;&lt; Url Shortener</Link>
                     </div>
 
                     </div>
 
                     <div className='row'>
 
-                    <div className='col-sm-12 col-md-4'>
-                        <ul className='list-group'>
-                            <li onClick={this.clearActiveLink} className={'list-group-item ' + (this.state.activeLink ? '': 'active')}>Overal stats for '{this.shortener.username}'</li>
-                            {
-                                this.state.links ?
-                                this.state.links.map(
-                                    (link, index) => <li key={index} onClick={this.setActiveLink.bind(this, index)} className={'list-group-item ' + (this.state.activeLink && this.state.activeLink._id === link._id ? 'active': '')}>https://bytely.me/{link.short_code}</li>
-                                ) : <li className='list-group-item'>You haven't created any links!</li>
-                            }
-                        </ul>
+                        <div className='col-sm-12 col-md-3'>
+                            <ul className='list-group'>
+                                <li onClick={this.clearActiveLink} className={'list-group-item ' + (this.state.activeLink ? '': 'active')}>Overal stats for '{this.shortener.username}'</li>
+                                {
+                                    this.state.links ?
+                                    this.state.links.map(
+                                        (link, index) => <li key={index} onClick={this.setActiveLink.bind(this, index)} className={'list-group-item ' + (this.state.activeLink && this.state.activeLink._id === link._id ? 'active': '')}>https://bytely.me/{link.short_code}</li>
+                                    ) : <li className='list-group-item'>You haven't created any links!</li>
+                                }
+                            </ul>
+                        </div>
+
+                        <div className='col-sm-12 col-md-9'>
+                            <div className='row'>
+                                
+                                <div className='col-sm-12'>
+                                    {
+                                        this.state.stats && this.state.stats.hours_utc ?
+                                        <HoursBreakdown
+                                        stats={this.state.stats.hours_utc} /> : <span>No hours usage data available.</span>
+                                    }
+                                </div>
+
+                                <div className='col-sm-12 col-md-6'>
+                                    
+                                    {
+                                        this.state.stats && this.state.stats.geo_data ?
+                                        <GeoBreakdown
+                                        stats={this.state.stats.geo_data} /> : <span>No geo data available.</span>
+                                    }
+            
+                                </div>
+
+                            </div>
+                        </div>
+
+                        
+
+                        
                     </div>
-
-                    <div className='col-sm-12 col-md-8'>
-                            
-                        {
-                            this.state.stats && this.state.stats.geo_data ?
-                            <GeoBreakdown
-                            stats={this.state.stats.geo_data} /> : <span>No geo data available.</span>
-                        }
-
-                        {/* {
-                            this.state.stats && this.state.stats.hours_utc ?
-                            <HoursBreakdown
-                            stats={this.state.userStats.hours_utc} /> : <span>No hours usage data available.</span>
-                        } */}
-
-
-                    </div>
-                    </div>
-
             </div>
         );
     }

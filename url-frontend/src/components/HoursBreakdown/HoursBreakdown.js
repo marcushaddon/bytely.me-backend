@@ -39,9 +39,9 @@ class HoursBreakdown extends Component {
 
     saveRef = (ref) => this.containerNode = ref
 
-    measure() {
+    setWidth() {
         const {clientWidth, clientHeight} = this.containerNode
-    
+        console.log("measurin")
         this.setState({
           width: clientWidth,
           height: clientHeight,
@@ -49,12 +49,17 @@ class HoursBreakdown extends Component {
       }
     
       componentDidMount() {
-        this.measure()
+        this.setWidth()
       }
     
     //   componentDidUpdate() {
-    //     this.measure()
+        
+    //     this.setWidth()
     //   }
+
+    componentWillReceiveProps(props) {
+        this.setState({hours: formatHoursDict(props.stats)})
+    }
 
     render() {
         return (
