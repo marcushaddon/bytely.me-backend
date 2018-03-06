@@ -18,6 +18,15 @@ def user_stats(user_id):
     stats = [stat for stat in statsquery]
 
     for stat in stats:
-        results[stat['type']] = stat
+        results[stat['type']] = clean(stat)
 
     return BSONEncoder().encode(results)
+
+
+
+def clean(stat):
+    cleaned = {}
+    for key in stat:
+        if key not in ('_id', 'user_id', 'type'):
+            cleaned[key] = stat[key]
+    return cleaned

@@ -37,7 +37,9 @@ def shortenurl():
         maybe_existing_url = db.shortened_urls.find_one({ "short_code": brand})
         if maybe_existing_url is not None:
             # TODO: include explaination
-            abort(409)
+            response = jsonify({'message': 'That brand is already taken!'})
+            response.status_code = 409
+            return response
 
     try:
         cleaned_url = clean_url(long_url)
@@ -46,7 +48,7 @@ def shortenurl():
     except Exception, e:
         abort(500)
     
-    latest_code_record = db.latest_short_code.find_one()
+    latest_code_record = db.latest_short_code.find_one({ 'code': { '$exists': True } } )
     
     
     print latest_code_record
@@ -62,7 +64,7 @@ def shortenurl():
         user_id = get_user_id(request)
     except Exception, e:
         print e.message
-        abort(403)
+        abort(403, {'message': 'You arent logged in!'})
     
     new_shorted_url = {
         "long_url": cleaned_url,
@@ -79,7 +81,7 @@ def shortenurl():
     if brand is None:
         if latest_code_record is None:
             print "CREATING"
-            db.lastest_short_code.insert_one({
+            db.latest_short_code.insert_one({
                 "code": next_short_code
             })
         else:

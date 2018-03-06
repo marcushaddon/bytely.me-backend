@@ -9,7 +9,8 @@ class ShortenForm extends Component {
         this.state = {
             longUrl: "",
             shortUrl: "",
-            brand: ""
+            brand: "",
+            errorMessage: null
         };
 
 
@@ -22,12 +23,24 @@ class ShortenForm extends Component {
     shortenUrl(e) {
         // TODO: Validate
         this.shortener.shorten(this.state.longUrl, this.state.brand)
+        .then(res => {
+            if (res.status >= 400) {
+                console.log("FAILURE")
+                res.json()
+                .then(err => {
+                    console.log(err.message)
+                    this.setState({ errorMessage: err.message })
+                })
+                
+            }
+        })
         .then(res => res.json())
         
         .then(data => {
             this.setState({ shortUrl: data.short_url })
-        }, failure => {
-            console.log("FAILED")
+        }).catch(failure => {
+            console.log("error is promise handling", failure)
+            
         })
         
     }
@@ -55,6 +68,13 @@ class ShortenForm extends Component {
                 <input className='form-control'type='text' placeholder='https://bytely.me/promo' readOnly value={this.state.shortUrl}/>
 
                 <button className="btn btn-primary" onClick={this.shortenUrl}>Shorten!</button>
+
+                {this.state.errorMessage &&
+                    <div className="alert alert-danger" role="alert">
+                        {this.state.errorMessage}
+                    </div>
+                }
+                
 
             </div>
         )
