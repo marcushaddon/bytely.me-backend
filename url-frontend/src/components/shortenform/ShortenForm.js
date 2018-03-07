@@ -40,7 +40,7 @@ class ShortenForm extends Component {
             this.setState({ shortUrl: data.short_url })
         }).catch(failure => {
             console.log("error is promise handling", failure)
-            
+            this.setState({errorMessage: "There was an error making the request."})
         })
         
     }

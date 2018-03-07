@@ -41,7 +41,6 @@ class HoursBreakdown extends Component {
 
     setWidth() {
         const {clientWidth, clientHeight} = this.containerNode
-        console.log("measurin")
         this.setState({
           width: clientWidth,
           height: clientHeight,

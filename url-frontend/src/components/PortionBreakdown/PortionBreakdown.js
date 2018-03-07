@@ -30,16 +30,16 @@ class PortionBreakdown extends Component {
     }
 
     render() {
-        console.log("portions is rendering")
         return (
             <div>
                 <h4>{StatHelper.friendlyField(this.props.title)}</h4>
                 {
                     <PieChart
                     data={this.state.portions}
-                    innerHoleSize={300}
+                    innerHoleSize={350}
                     padding={50}
                     labels
+                    size={300}
                     />
                 }  
             </div>

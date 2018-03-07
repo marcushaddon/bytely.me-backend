@@ -24,12 +24,14 @@ def update_stats(user_id, click, stat_level):
             new = False
             headerstats = dd(lambda: dd(int), headerstats)
         
-        ofinterest = ['Accept-Language', 'User-Agent']
-        for header in ofinterest:
-            if header not in click['headers']:
-                continue
-            value = click['headers'][header].replace(".", "__")
-            headerstats[header][value] += 1
+        
+
+        if 'User-Agent' in click['headers']:
+            ismobile = 'Mobi' in click['headers']['User-Agent']
+            if ismobile:
+                headerstats['devicetype']['mobile'] += 1
+            else:
+                headerstats['devicetype']['desktop'] += 1
         
         if new:
             db[collection].insert(headerstats)

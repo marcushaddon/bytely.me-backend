@@ -78,7 +78,8 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <div>
+            <div className='container'>
+                
                 <div className='row'>
 
                     <div className='jumbotron'>
@@ -107,24 +108,26 @@ class Dashboard extends Component {
                         </div>
 
                         <div className='col-sm-12 col-md-9'>
-                            <div className='row'>
-                                
-                                <div className='col-sm-12'>
-                                    {
-                                        this.state.stats && this.state.stats.hours_utc ?
-                                        <HoursBreakdown
-                                        stats={this.state.stats.hours_utc} /> : <span>No hours usage data available.</span>
-                                    }
-                                </div>
-
-                                <div className='col-sm-12 col-md-6'>
+                            <div className='container'>
+                            
+                                <div className='row'>
                                     
-                                    {
-                                        this.state.stats && this.state.stats.geo_data ?
-                                        <GeoBreakdown
-                                        stats={this.state.stats.geo_data} /> : <span>No geo data available.</span>
-                                    }
-            
+                                    <div className='col-sm-12'>
+                                        {
+                                            this.state.stats && this.state.stats.hours_utc ?
+                                            <HoursBreakdown
+                                            stats={this.state.stats.hours_utc} /> : <span>No hours usage data available.</span>
+                                        }
+                                    </div>
+
+                                    <div className='col-sm-12 col-md-6'>
+                                        {
+                                            this.state.stats && this.state.stats.geo_data ?
+                                            <GeoBreakdown
+                                            stats={this.state.stats.geo_data} /> : <span>No geo data available.</span>
+                                        }
+                                    </div>
+
                                 </div>
 
                             </div>
