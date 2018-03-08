@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask_cors import CORS
 
 
@@ -25,7 +25,11 @@ CORS(app)
 @app.route("/")
 def hello():
     # TODO: Return UI
-    return "Hello World!"
+    return "welcome to bytely.me"
+
+# @app.route("/", subdomain="youcan")
+# def byteme():
+#     return "fuck you"
 
 app.register_blueprint(create_link)
 app.register_blueprint(get_redirect)

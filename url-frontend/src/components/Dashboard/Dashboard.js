@@ -8,6 +8,7 @@ import PortionBreakdown from '../PortionBreakdown/PortionBreakdown';
 import StatBreakdown from '../StatBreakdown/StatBreakdown';
 import GeoBreakdown from '../GeoBreakdown/GeoBreakdown';
 import HoursBreakdown from '../HoursBreakdown/HoursBreakdown';
+import DeviceBreakdown from '../DeviceBreakdown/DeviceBreakdown';
 
 class Dashboard extends Component {
 
@@ -125,6 +126,14 @@ class Dashboard extends Component {
                                             this.state.stats && this.state.stats.geo_data ?
                                             <GeoBreakdown
                                             stats={this.state.stats.geo_data} /> : <span>No geo data available.</span>
+                                        }
+                                    </div>
+
+                                    <div className='col-sm-12 col-md-6'>
+                                        {
+                                            this.state.stats && this.state.stats.headers && this.state.stats.headers.devicetype ?
+                                            <DeviceBreakdown
+                                            stats={this.state.stats.headers.devicetype} /> : <span>No device type data available.</span>
                                         }
                                     </div>
 
