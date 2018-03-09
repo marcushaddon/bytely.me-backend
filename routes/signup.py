@@ -21,12 +21,18 @@ def signup():
     
     # TODO: Make sure email address is valid
     # Make sure username isnt taken
-    existingusername = db.users.find_one({ 'username': username })
+    try:
+        existingusername = db.users.find_one({ 'username': username })
+    except Exception, e:
+        print e
 
     if existingusername is not None:
         abort(409, "That username is already taken.")
     
-    existingemail = db.users.find_one({ 'email': email })
+    try:
+        existingemail = db.users.find_one({ 'email': email })
+    except Exception, e:
+        print e
 
     if existingemail is not None:
         abort(409, "An account is aleady registered for this email address.")
