@@ -43,7 +43,8 @@ def signup():
 
     try:
         db.users.insert_one(user)
-    except:
+    except Exception, e:
+        print str(e)
         abort(500)
     
     return jsonify({"result": "success"})
