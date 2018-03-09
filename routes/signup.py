@@ -44,7 +44,8 @@ def signup():
     try:
         db.users.insert_one(user)
     except Exception, e:
-        print str(e)
+        print "there was an error"
+        print e
         abort(500)
     
     return jsonify({"result": "success"})

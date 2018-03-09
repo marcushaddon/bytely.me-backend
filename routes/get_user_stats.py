@@ -7,6 +7,7 @@ get_user_stats = Blueprint('get_user_stats', __name__)
 
 @get_user_stats.route('/api/users/<user_id>/stats')
 def user_stats(user_id):
+    print "hello"
     actual_user_id = get_user_id(request)
     
     if user_id != actual_user_id:
