@@ -17,7 +17,7 @@ def update_stats(user_id, click, stat_level):
     collection = stat_level + 'stats'
 
     if 'headers' in click:
-        query = { _id: ObjectId(click[_id]), "type": "headers" }
+        query = { _id: click[_id], "type": "headers" }
         print "QUERY:"
         print query
         headerstats = db[collection].find_one(query)
