@@ -12,7 +12,7 @@ create_link = Blueprint('create_link', __name__)
 # =================================
 # CREATE LINK
 # =================================
-@create_link.route('/api/link', methods=['POST'])
+@create_link.route('/api/links', methods=['POST'])
 def shortenurl():
     body = request.get_json()
     long_url = None
