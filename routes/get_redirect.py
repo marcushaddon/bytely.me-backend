@@ -29,8 +29,8 @@ def shorturls(short_code):
         
         # TODO: This database throws an exception for IPv6 addrs
         gi = pygeoip.GeoIP('GeoLiteCity.dat', pygeoip.MEMORY_CACHE)
-        # geo_data = gi.record_by_addr(request.remote_addr)
-        geo_data = gi.record_by_addr("67.198.96.200")
+        print "REQUEST ADDR: " + request.remote_addr
+        geo_data = gi.record_by_addr(request.remote_addr) if request.remote_addr is not None else None
 
 
         click = {
