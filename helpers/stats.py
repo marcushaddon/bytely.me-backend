@@ -11,6 +11,7 @@ class StatLevel(object):
 def update_stats(user_id, click, stat_level):
     # Record header stats
     _id = stat_level + '_id'
+    print "updating stats for " + stat_level + " with id " + _id
     collection = stat_level + 'stats'
 
     if 'headers' in click:
