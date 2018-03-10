@@ -22,15 +22,15 @@ def update_stats(user_id, click, stat_level):
         print query
         headerstats = db[collection].find_one(query)
 
-        print "headerstats"
-        print headerstats
-
         if headerstats is None:
             new = True
             headerstats = dd(lambda: dd(int), query)
         else:
             new = False
             headerstats = dd(lambda: dd(int), headerstats)
+
+        print "headerstats"
+        print headerstats
         
         
 
