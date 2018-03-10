@@ -27,7 +27,7 @@ def update_stats(user_id, click, stat_level):
             headerstats = dd(lambda: dd(int), query)
         else:
             new = False
-            headerstats = dd(lambda: dd(int), headerstats)
+            headerstats['devicetype'] = dd(int)
 
         print "headerstats"
         print headerstats
