@@ -11,4 +11,4 @@ print "MONGO URI: " + mongo_conn_str
 
 client = MongoClient(mongo_conn_str) if mongo_conn_str is not None else MongoClient()
 
-db = client.urldb
+db = client.urldb if mongo_conn_str is None else client.heroku_s4vn6w74
