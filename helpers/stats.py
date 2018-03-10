@@ -1,6 +1,7 @@
 from collections import defaultdict as dd
 from helpers import toten 
 from db import db
+from bson import ObjectId
 
 class StatLevel(object):
     USER = "user"
@@ -16,8 +17,11 @@ def update_stats(user_id, click, stat_level):
     collection = stat_level + 'stats'
 
     if 'headers' in click:
-        query = { _id: click[_id], "type": "headers" }
+        query = { _id: ObjectId(click[_id]), "type": "headers" }
         headerstats = db[collection].find_one(query)
+
+        print "headerstats"
+        print headerstats
 
         if headerstats is None:
             new = True
