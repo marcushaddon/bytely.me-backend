@@ -43,7 +43,7 @@ def get_user_id(request):
         payload = jwt.decode(token, JWT_SECRET, algorithm='HS256')
     except:
         # TODO: Implement custom error class for bad tokens
-        raise Exception
+        return None
 
     if "user_id" in payload:
         return payload["user_id"]

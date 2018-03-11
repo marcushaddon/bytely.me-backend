@@ -3,6 +3,7 @@ from db import db
 from bson import ObjectId
 from helpers.bsonparsing import BSONEncoder
 from helpers.authentication import authenticate, get_user_id
+from helpers.errors import error_response
 
 get_clicks = Blueprint('get_clicks', __name__)
 
@@ -13,9 +14,9 @@ def getclicks(link_id):
     # Make sure they own this link
     link = db.shortened_urls.find_one({ "_id": ObjectId(link_id) })
     if link is None:
-        abort(404)
+        return error_response(404, "That link could not be found.")
     elif link["user_id"] != user_id:
-        abort(403)
+        return error_response(403, "You are not allowed to access that link.")
 
     
     # TODO: Make sure they belong to the user making the request!
@@ -23,7 +24,6 @@ def getclicks(link_id):
         clicksquery = db.clicks.find({ "url_id": link_id })
         clicks = [click for click in clicksquery]
     except Exception, e:
-        print e.message
-        abort(500)
+        return error_response(500, "We encountered a problem.")
     
     return BSONEncoder().encode(clicks)

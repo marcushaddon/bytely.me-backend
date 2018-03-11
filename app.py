@@ -27,9 +27,7 @@ def hello():
     # TODO: Return UI
     return "welcome to bytely.me"
 
-# @app.route("/", subdomain="youcan")
-# def byteme():
-#     return "fuck you"
+
 
 app.register_blueprint(create_link)
 app.register_blueprint(get_redirect)
@@ -39,3 +37,4 @@ app.register_blueprint(get_clicks)
 app.register_blueprint(sign_up)
 app.register_blueprint(get_user_stats)
 app.register_blueprint(get_link_stats)
+

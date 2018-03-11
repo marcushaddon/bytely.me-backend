@@ -3,6 +3,7 @@ from bson import ObjectId
 from db import db
 from helpers.authentication import get_user_id
 from helpers.bsonparsing import BSONEncoder
+from helpers.errors import error_response
 
 get_link_stats = Blueprint('get_link_stats', __name__)
 
@@ -12,10 +13,10 @@ def link_stats(link_id):
     link = db.shortened_urls.find_one({ "_id": ObjectId(link_id) })
 
     if link is None:
-        abort(404)
+        return error_response(404, 'That link could not be found.')
     
     if link["user_id"] != user_id:
-        abort(403)
+        return error_response(403, "You aren't allowed to access that linke!")
     
     results = {}
     

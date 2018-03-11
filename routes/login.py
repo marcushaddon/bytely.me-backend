@@ -4,6 +4,7 @@ from flask import Blueprint, request, jsonify, abort
 from db import db
 from config import PASSWORD_SALT, JWT_SECRET
 import jwt
+from helpers.errors import error_response
 
 login = Blueprint('login', __name__)
 
@@ -15,7 +16,7 @@ def get_token():
         username_or_email = body['username_or_email']
         password = body['password']
     except:
-        abort(403)
+        return error_response(400, "Please submit a username/email and password.")
 
     pwhash = hashlib.sha512(password + PASSWORD_SALT).hexdigest()
     
@@ -28,7 +29,7 @@ def get_token():
     user = db.users.find_one(query)
 
     if user is None:
-        abort(403)
+        return error_response(403, "The password and/or username/email were incorrect.")
     
     payload = {
         "typ": "jwt",

@@ -4,6 +4,7 @@ from db import db
 from helpers.codes import next_code
 from helpers.clean_url import clean_url
 from helpers.authentication import authenticate, get_user_id
+from helpers.errors import error_response
 
 from config import BASE_URL
 
@@ -23,9 +24,9 @@ def shortenurl():
     try:
         long_url = body['long_url']
     except KeyError:
-        abort(400)
+        return error_response(400, 'Please provide a URL!')
     except:
-        abort(500)
+        return error_response(500, "We encountered a problem.")
     
     # Optional custom branded link
     try:
@@ -36,22 +37,17 @@ def shortenurl():
     if brand is not None:
         maybe_existing_url = db.shortened_urls.find_one({ "short_code": brand})
         if maybe_existing_url is not None:
-            # TODO: include explaination
-            response = jsonify({'message': 'That brand is already taken!'})
-            response.status_code = 409
-            return response
+            error_response(409, 'That brand is already taken!')
 
     try:
         cleaned_url = clean_url(long_url)
     except ValueError, e:
-        abort(400)
+        return error_response(400, 'Please provide a valid URL.')
     except Exception, e:
-        abort(500)
+        return error_response(500, "We encountered a problem.")
     
     latest_code_record = db.latest_short_code.find_one({ 'code': { '$exists': True } } )
     
-    
-    print latest_code_record
     last_code = latest_code_record["code"] if latest_code_record is not None else None
     next_short_code = next_code(last_code)
 
@@ -63,8 +59,7 @@ def shortenurl():
     try:
         user_id = get_user_id(request)
     except Exception, e:
-        print e.message
-        abort(403, {'message': 'You arent logged in!'})
+        return error_response(401, 'Your token is bad!')
     
     new_shorted_url = {
         "long_url": cleaned_url,
@@ -75,7 +70,7 @@ def shortenurl():
     try:
         db.shortened_urls.insert_one(new_shorted_url)
     except:
-        abort(500)
+        return error_response(500, "We encountered a problem.")
 
     # Only update latest shortcode if we used a generated shortcode
     if brand is None:
