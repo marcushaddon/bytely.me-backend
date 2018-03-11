@@ -25,7 +25,7 @@ CORS(app)
 @app.route("/")
 def hello():
     # TODO: Return UI
-    return redirect('http://app.bytely.me')
+    return redirect('http://bytelyme-frontend.herokuapp.com')
 
 
 
