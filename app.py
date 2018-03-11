@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, redirect
 from flask_cors import CORS
 
 
@@ -25,7 +25,7 @@ CORS(app)
 @app.route("/")
 def hello():
     # TODO: Return UI
-    return "welcome to bytely.me"
+    return redirect('http://bytelyme-app.herokuapp.com')
 
 
 
