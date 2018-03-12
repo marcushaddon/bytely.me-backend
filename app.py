@@ -26,7 +26,7 @@ CORS(app)
 def hello():
     print "I am getting a root request"
     # TODO: Return UI
-    return redirect('http://bytelyme-frontend.herokuapp.com')
+    return redirect('http://app.bytely.me')
     # return "hello lets get... bytely!"
 
 
