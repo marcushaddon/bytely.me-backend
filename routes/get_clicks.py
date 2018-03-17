@@ -21,7 +21,7 @@ def getclicks(link_id):
     
     # TODO: Make sure they belong to the user making the request!
     try:
-        clicksquery = db.clicks.find({ "url_id": link_id })
+        clicksquery = db.clicks.find({ "link_id": link_id })
         clicks = [click for click in clicksquery]
     except Exception, e:
         return error_response(500, "We encountered a problem.")

@@ -12,14 +12,10 @@ class StatLevel(object):
 def update_stats(user_id, click, stat_level):
     # Record header stats
     _id = stat_level + '_id'
-    print "updating stats for " + stat_level + " with id " + _id
-    print str(click)
     collection = stat_level + 'stats'
 
     if 'headers' in click:
         query = { _id: click[_id], "type": "headers" }
-        print "QUERY:"
-        print query
         headerstats = db[collection].find_one(query)
 
         if headerstats is None:
@@ -28,11 +24,6 @@ def update_stats(user_id, click, stat_level):
         else:
             new = False
             headerstats['devicetype'] = dd(int, headerstats['devicetype'])
-
-        print "headerstats"
-        print headerstats
-        
-        
 
         if 'User-Agent' in click['headers']:
             ismobile = 'Mobi' in click['headers']['User-Agent']
